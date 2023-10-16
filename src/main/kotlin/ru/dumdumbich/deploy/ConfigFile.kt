@@ -35,16 +35,24 @@ object ConfigFile {
         get() = _dirRegistrars!!
 
     // Config dir (run app from IDE)
-    private val pathConfigFile = "${FileOs.homeDirectory}/app/${FileOs.APP_NAME}/${FileOs.APP_NAME}.conf"
+    private val configDir = "${FileOs.homeDirectory}/app/${FileOs.APP_NAME}"
 
     // Config dir (run jar file on development/target server)
-//    private val pathConfigFile = "${FileOs.appDirectory}/${FileOs.APP_NAME}/${FileOs.APP_NAME}.conf"
+//    private val configDir = "${FileOs.appDirectory}/${FileOs.APP_NAME}"
+
+    private val templateDir = "${configDir}/temp"
+    private val pathTemplateDir = FileOs.stringToPath(templateDir)
+    private val pathTemplateFile = FileOs.stringToPath("$templateDir/TempRegistrars.list")
+
+    private val configFile = "$configDir/${FileOs.APP_NAME}.conf"
+    private val pathConfigFile = FileOs.stringToPath(configFile)
+
+    private val registrarsListFile = "$configDir/Registrars.list"
+    private val pathRegistrarsListFile = FileOs.stringToPath(registrarsListFile)
 
     init {
-        val pathConfig = FileOs.stringToPath(pathConfigFile)
-        println(pathConfigFile)
-        if (FileOs.isPathExists(pathConfig)) {
-            val file = File(pathConfigFile)
+        if (FileOs.isPathExists(pathConfigFile)) {
+            val file = File(configFile)
             val fileReader = FileReader(file, Charset.forName("utf-8"))
             val bufReader = BufferedReader(fileReader)
             var line = bufReader.readLine()
@@ -73,4 +81,29 @@ object ConfigFile {
             fileReader.close()
         }
     }
+
+    fun createRegistrarsListTemplateFile() {
+        if (FileOs.isPathNotExists(pathTemplateDir)) {
+            FileOs.createDirectory(pathTemplateDir)
+        }
+        if (FileOs.isPathExists(pathTemplateDir)) {
+            if (FileOs.isPathNotExists(pathTemplateFile)) {
+                FileOs.createFile(pathTemplateFile)
+                if (FileOs.isPathExists(pathTemplateFile) && FileOs.isPathExists(pathRegistrarsListFile)) {
+                    val file = File(registrarsListFile)
+                    val fileReader = FileReader(file, Charset.forName("utf-8"))
+                    val bufReader = BufferedReader(fileReader)
+                    var line = bufReader.readLine()
+                    while (line != null) {
+                        val registrarInstallNumber = line.substringBefore("|").trim().lowercase()
+                        FileOs.addTextToFile("$registrarInstallNumber|\n", pathTemplateFile)
+                        line = bufReader.readLine()
+                    }
+                    bufReader.close()
+                    fileReader.close()
+                }
+            }
+        }
+    }
+
 }

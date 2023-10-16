@@ -4,6 +4,7 @@ import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
+import java.nio.file.StandardOpenOption
 
 /**
  * @Project : <h3>deploy</h3>
@@ -29,6 +30,27 @@ object FileOs {
 
     fun createDirectory(path: Path): Boolean = try {
         Files.createDirectory(path)
+        true
+    } catch (e: IOException) {
+        e.printStackTrace()
+        false
+    }
+
+    fun createFile(path: Path): Boolean = try {
+        Files.createFile(path)
+        true
+    } catch (e: IOException) {
+        e.printStackTrace()
+        false
+    }
+
+    fun addTextToFile(text: String, path: Path): Boolean = try {
+        Files.write(
+            path,
+            text.toByteArray(),
+            StandardOpenOption.APPEND,
+            StandardOpenOption.CREATE
+        )
         true
     } catch (e: IOException) {
         e.printStackTrace()
