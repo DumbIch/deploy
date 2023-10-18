@@ -14,13 +14,13 @@ import java.nio.charset.Charset
  * @date 2023-10-13 13:08
  **/
 
-enum class ConfigParams(val param: String) {
+enum class DeployConfParams(val param: String) {
     DIR_ROOT("dirRoot"),
     DIR_FTP("dirFtp"),
     DIR_REGISTRARS("dirRegistrars")
 }
 
-object ConfigFile {
+object DeployConf {
 
     private var _dirRoot: String? = null
     val dirRoot: String
@@ -62,15 +62,15 @@ object ConfigFile {
                 val paramValue = line.substringAfter("=").trim()
                 if (paramValue.isNotEmpty()) {
                     when (paramName) {
-                        ConfigParams.DIR_ROOT.param.lowercase() -> {
+                        DeployConfParams.DIR_ROOT.param.lowercase() -> {
                             _dirRoot = paramValue
                         }
 
-                        ConfigParams.DIR_FTP.param.lowercase() -> {
+                        DeployConfParams.DIR_FTP.param.lowercase() -> {
                             _dirFtp = paramValue
                         }
 
-                        ConfigParams.DIR_REGISTRARS.param.lowercase() -> {
+                        DeployConfParams.DIR_REGISTRARS.param.lowercase() -> {
                             _dirRegistrars = paramValue
                         }
                     }

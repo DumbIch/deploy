@@ -42,9 +42,9 @@ object Deploy {
     }
 
     fun createDirectoryStructure() {
-        println("Root deploy directory : ${ConfigFile.dirRoot}")
-        println("FTP directory : ${ConfigFile.dirFtp}")
-        println("Registrars directory : ${ConfigFile.dirRegistrars}")
+        println("Root deploy directory : ${DeployConf.dirRoot}")
+        println("FTP directory : ${DeployConf.dirFtp}")
+        println("Registrars directory : ${DeployConf.dirRegistrars}")
         DirectoryStructure
     }
 

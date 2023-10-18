@@ -23,9 +23,9 @@ object DirectoryStructure {
     init {
         println("Create directory tree fo registrars files")
 
-        val pathRoot = stringToPath(ConfigFile.dirRoot)
-        val pathFtp = stringToPath("${ConfigFile.dirRoot}/${ConfigFile.dirFtp}")
-        val pathRegistrars = stringToPath("${ConfigFile.dirRoot}/${ConfigFile.dirRegistrars}")
+        val pathRoot = stringToPath(DeployConf.dirRoot)
+        val pathFtp = stringToPath("${DeployConf.dirRoot}/${DeployConf.dirFtp}")
+        val pathRegistrars = stringToPath("${DeployConf.dirRoot}/${DeployConf.dirRegistrars}")
 
         // Registrars list (run app from IDE)
         val pathRegistrarsList = "${FileOs.homeDirectory}/app/${FileOs.APP_NAME}/Registrars.list"
@@ -55,7 +55,7 @@ object DirectoryStructure {
                     var line = bufReader.readLine()
                     while (line != null) {
                         val dirRegistrar = line.substringBefore("|").trim().lowercase()
-                        val pathTarget = stringToPath("${ConfigFile.dirRoot}/${ConfigFile.dirRegistrars}/$dirRegistrar")
+                        val pathTarget = stringToPath("${DeployConf.dirRoot}/${DeployConf.dirRegistrars}/$dirRegistrar")
                         if (isPathNotExists(pathTarget)) createDirectory(pathTarget)
                         line = bufReader.readLine()
                     }
