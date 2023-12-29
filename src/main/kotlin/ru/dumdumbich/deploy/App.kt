@@ -1,7 +1,9 @@
 package ru.dumdumbich.deploy
 
+import ru.dumdumbich.deploy.data.db.registrars.RegistrarsDatabase
+
 fun main(args: Array<String>) {
-    Deploy.initArgs(args)
-//    Deploy.initConsole()
-    Deploy.createDirectoryStructure()
+    RegistrarsDatabase.init()
+    RegistrarsDatabase.run()
+    RegistrarsDatabase.done()
 }

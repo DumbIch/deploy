@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "ru.dumdumbich"
-version = "1.0"
+version = "1.1"
 
 repositories {
     mavenCentral()
@@ -12,6 +12,11 @@ repositories {
 
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+
+    implementation("org.ktorm:ktorm-core:3.6.0")
+    implementation("org.ktorm:ktorm-support-postgresql:3.6.0")
+
+    implementation("org.postgresql:postgresql:42.5.4")
 
     implementation("org.apache.commons:commons-text:1.10.0")
     testImplementation("org.jetbrains.kotlin:kotlin-test:1.8.10")
